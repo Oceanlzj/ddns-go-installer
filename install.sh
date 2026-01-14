@@ -461,7 +461,8 @@ Wants=network-online.target
 [Service]
 Type=simple
 User=${DDNS_GO_USER}
-Group=${DDNS_GO_USER} # Or primary group of DDNS_GO_USER
+Group=${DDNS_GO_USER} 
+# Or primary group of DDNS_GO_USER
 ExecStart=${exec_start_cmd}
 Restart=on-failure
 RestartSec=30s
