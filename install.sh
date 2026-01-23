@@ -1,5 +1,5 @@
 #!/bin/bash
-# Script Version: 1.2.1
+# Script Version: 1.2.2
 # Purpose: Installer and manager for ddns-go
 # Author: k08255-lxm (Original), Refactored by AI
 # Ensure this script is saved with Unix line endings (LF) and UTF-8 encoding without BOM.
@@ -24,7 +24,7 @@ BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
 # --- Script Metadata & Configuration ---
-SCRIPT_VERSION="1.2.1"
+SCRIPT_VERSION="1.2.2"
 readonly SCRIPT_FILENAME=$(basename "$0")
 readonly DDNS_GO_GH_REPO="jeessy2/ddns-go"
 readonly INSTALLER_GH_REPO="k08255-lxm/ddns-go-installer" # For self-update
@@ -221,7 +221,7 @@ get_local_ddns_go_version() {
     if [[ ! -x "${DDNS_GO_BIN_PATH}" ]]; then echo "路径无效"; return; fi
 
     local version_output
-    version_output=$("${DDNS_GO_BIN_PATH}" -version 2>&1) || { warn "执行 '${DDNS_GO_BIN_PATH} -version' 失败"; echo "获取失败"; return; }
+    version_output=$("${DDNS_GO_BIN_PATH}" -v 2>&1) || { warn "执行 '${DDNS_GO_BIN_PATH} -v' 失败"; echo "获取失败"; return; }
     
     # Regex to capture vX.Y.Z or X.Y.Z (and add 'v' if missing)
     local version
@@ -461,7 +461,8 @@ Wants=network-online.target
 [Service]
 Type=simple
 User=${DDNS_GO_USER}
-Group=${DDNS_GO_USER} # Or primary group of DDNS_GO_USER
+Group=${DDNS_GO_USER} 
+# Or primary group of DDNS_GO_USER
 ExecStart=${exec_start_cmd}
 Restart=on-failure
 RestartSec=30s
